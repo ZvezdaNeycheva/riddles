@@ -22,7 +22,7 @@ jobs:
         run: |
           git remote add gatanki https://${{ secrets.PAT_TOKEN }}@github.com/DreamersJS/gatanki.git
           git fetch gatanki
-          git merge gatanki/main --allow-unrelated-histories -m "Merge Gatanki changes"
+          git merge gatanki/main -X theirs --allow-unrelated-histories -m "Merge Gatanki changes"
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
