@@ -13,9 +13,14 @@ jobs:
       - name: Checkout Riddles Repository
         uses: actions/checkout@v3
 
+      - name: Configure Git User
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
       - name: Add Gatanki as Remote
         run: |
-          git remote add gatanki https://github.com/DreamersJS/gatanki.git
+          git remote add gatanki https://${{ secrets.PAT_TOKEN }}@github.com/DreamersJS/gatanki.git
           git fetch gatanki
           git merge gatanki/main --allow-unrelated-histories -m "Merge Gatanki changes"
           git push origin main
