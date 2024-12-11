@@ -1,0 +1,26 @@
+name: Sync Gatanki to Riddles and Deploy to Vercel
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Riddles Repository
+        uses: actions/checkout@v3
+
+      - name: Add Gatanki as Remote
+        run: |
+          git remote add gatanki https://github.com/DreamersJS/gatanki.git
+          git fetch gatanki
+          git merge gatanki/main --allow-unrelated-histories -m "Merge Gatanki changes"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Trigger Vercel Deployment
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}
