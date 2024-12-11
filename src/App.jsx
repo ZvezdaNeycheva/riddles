@@ -17,13 +17,10 @@ function App() {
   };
 
   const handleShowAnswer = (id) => {
+    const currentRiddle = riddles.find((r) => r.id === id);
     setIsAnswerHidden(false);
-    if (!isAnswerHidden && id) {
-      const currentRiddle = riddles.find((r) => r.id === id);
-      // console.log(currentRiddle);
-      setAnswer(currentRiddle ? currentRiddle.answer : 'answer');
-    }
-  };
+    setAnswer(currentRiddle ? currentRiddle.answer : 'answer');
+  };  
 
 
   return (
@@ -39,7 +36,8 @@ function App() {
       }
 
       {
-        counter && counter < riddles.length - 1 && <button onClick={handleNextCard}>Next</button>
+        counter && counter < riddles.length - 1 &&
+        <button onClick={handleNextCard}>Next</button>
       }
     </>
   )
