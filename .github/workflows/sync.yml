@@ -2,7 +2,6 @@ name: Sync Gatanki to Riddles and Deploy to Vercel
 
 on:
   schedule:
-    - cron: '0 * * * *' # Every hour
   workflow_dispatch: # Manual trigger
 
 jobs:
